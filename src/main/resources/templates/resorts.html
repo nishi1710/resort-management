@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Resorts</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<h1>All Resorts</h1>
+<a href="/add">Add Resort</a>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Price/Night</th>
+    </tr>
+    <tr th:each="resort : ${resorts}">
+        <td th:text="${resort.name}">Name</td>
+        <td th:text="${resort.location}">Location</td>
+        <td th:text="${resort.pricePerNight}">0</td>
+    </tr>
+</table>
+</body>
+</html>
