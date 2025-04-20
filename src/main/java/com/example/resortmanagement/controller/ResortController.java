@@ -13,11 +13,12 @@ public class ResortController {
     @Autowired
     private ResortRepository resortRepo;
 
-    @GetMapping("/")
+    @GetMapping("/resorts")
     public String listResorts(Model model) {
-        model.addAttribute("resorts", resortRepo.findAll());
-        return "resorts";
-    }
+    model.addAttribute("resorts", resortRepo.findAll());
+    return "resorts"; // This will render 'resorts.html'
+}
+
 
     @GetMapping("/resort/{id}")
     public String resortDetails(@PathVariable Long id, Model model) {
