@@ -1,9 +1,9 @@
 package com.example.resortmanagement.model;
 
 import jakarta.persistence.*;
-import java.util.Date;
-
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 @Entity
 public class Booking {
@@ -30,6 +30,98 @@ public class Booking {
 
     @Column(length = 1000)
     private String specialRequests;
+
+    // No-arg constructor (required by JPA)
+    public Booking() {}
+
+    // Private constructor for builder
+    private Booking(Builder builder) {
+        this.username = builder.username;
+        this.email = builder.email;
+        this.resortName = builder.resortName;
+        this.roomType = builder.roomType;
+        this.numberOfGuests = builder.numberOfGuests;
+        this.numberOfRooms = builder.numberOfRooms;
+        this.arrivalDate = builder.arrivalDate;
+        this.departureDate = builder.departureDate;
+        this.roomPrice = builder.roomPrice;
+        this.totalPrice = builder.totalPrice;
+        this.specialRequests = builder.specialRequests;
+    }
+
+    // Builder class
+    public static class Builder {
+        private String username;
+        private String email;
+        private String resortName;
+        private String roomType;
+        private int numberOfGuests;
+        private int numberOfRooms;
+        private Date arrivalDate;
+        private Date departureDate;
+        private double roomPrice;
+        private double totalPrice;
+        private String specialRequests;
+
+        public Builder username(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder resortName(String resortName) {
+            this.resortName = resortName;
+            return this;
+        }
+
+        public Builder roomType(String roomType) {
+            this.roomType = roomType;
+            return this;
+        }
+
+        public Builder numberOfGuests(int numberOfGuests) {
+            this.numberOfGuests = numberOfGuests;
+            return this;
+        }
+
+        public Builder numberOfRooms(int numberOfRooms) {
+            this.numberOfRooms = numberOfRooms;
+            return this;
+        }
+
+        public Builder arrivalDate(Date arrivalDate) {
+            this.arrivalDate = arrivalDate;
+            return this;
+        }
+
+        public Builder departureDate(Date departureDate) {
+            this.departureDate = departureDate;
+            return this;
+        }
+
+        public Builder roomPrice(double roomPrice) {
+            this.roomPrice = roomPrice;
+            return this;
+        }
+
+        public Builder totalPrice(double totalPrice) {
+            this.totalPrice = totalPrice;
+            return this;
+        }
+
+        public Builder specialRequests(String specialRequests) {
+            this.specialRequests = specialRequests;
+            return this;
+        }
+
+        public Booking build() {
+            return new Booking(this);
+        }
+    }
 
     // Getters and Setters
 
@@ -96,8 +188,6 @@ public class Booking {
     public void setArrivalDate(Date arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
-
-
 
     public Date getDepartureDate() {
         return departureDate;
