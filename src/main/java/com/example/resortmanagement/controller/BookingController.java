@@ -1,18 +1,20 @@
 package com.example.resortmanagement.controller;
 
-import com.example.resortmanagement.entity.User;
-import com.example.resortmanagement.model.Booking;
-import com.example.resortmanagement.repository.BookingRepository;
-
-import jakarta.servlet.http.HttpSession;
-
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.resortmanagement.entity.User;
+import com.example.resortmanagement.model.Booking;
+import com.example.resortmanagement.repository.BookingRepository;
+
+import jakarta.servlet.http.HttpSession;
 @Controller
 public class BookingController {
 
@@ -20,7 +22,7 @@ public class BookingController {
     private BookingRepository bookingRepo;
 
     @GetMapping("/book")
-public String showBookingForm(@RequestParam String resortName, Model model, HttpSession session) {
+    public String showBookingForm(@RequestParam String resortName, Model model, HttpSession session) {
     User user = (User) session.getAttribute("loggedInUser");
 
     if (user == null) {
@@ -34,7 +36,7 @@ public String showBookingForm(@RequestParam String resortName, Model model, Http
 }
 
     @PostMapping("/book")
-public String submitBooking(@RequestParam String username,
+    public String submitBooking(@RequestParam String username,
                             @RequestParam String email,
                             @RequestParam String resortName,
                             @RequestParam String roomType,

@@ -32,6 +32,7 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
         User user = userService.authenticate(email, password);
+        
 
         if (user != null) {
             // Assign role if it's admin or manager
@@ -42,6 +43,7 @@ public class AuthController {
             }
 
             session.setAttribute("loggedInUser", user);
+            session.setAttribute("userEmail", email); 
             return "redirect:/dashboard";
         } else {
             model.addAttribute("error", "Invalid credentials. Don't have an account? <a href='/register'>Register here</a>");
