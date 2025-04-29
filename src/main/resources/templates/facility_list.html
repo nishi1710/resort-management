@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Facility List</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Facility List</h2>
+
+        <!-- Button to go to the Add New Facility form -->
+        <a href="/manager/add-facility" class="btn btn-primary mb-3">Add New Facility</a>
+
+        <!-- Table to display existing facilities -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Room Number</th>
+                    <th>Cost</th>  <!-- Add column for cost -->
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through each facility in the facilities list -->
+                <tr th:each="facility : ${facilities}">
+                    <td th:text="${facility.name}"></td>
+                    <td th:text="${facility.description}"></td>
+                    <td th:text="${facility.roomNumber}"></td>
+                    <td th:text="${facility.cost}"></td>  <!-- Display the cost of the facility -->
+                    <td>
+                        <!-- Delete button to remove a facility -->
+                        <form th:action="@{/manager/delete-facility/{id}(id=${facility.id})}" method="get">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

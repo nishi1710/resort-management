@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.resortmanagement.dao.ResortDao;
 import com.example.resortmanagement.entity.User;
 import com.example.resortmanagement.service.UserService;
 
@@ -18,6 +19,9 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ResortDao resortDao; // Added ResortDao to fetch resorts
 
     @GetMapping("/")
     public String homeRedirect() {
@@ -32,7 +36,6 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
         User user = userService.authenticate(email, password);
-        
 
         if (user != null) {
             // Assign role if it's admin or manager
@@ -75,11 +78,18 @@ public class AuthController {
 
         model.addAttribute("user", user);
 
-        return switch (user.getRole()) {
-            case "ADMIN" -> "admin_dashboard";
-            case "MANAGER" -> "manager_dashboard";
-            default -> "customer_dashboard";
-        };
+        switch (user.getRole()) {
+            case "ADMIN" -> {
+                model.addAttribute("resorts", resortDao.findAll()); // Load resorts for admin dashboard
+                return "admin_dashboard";
+            }
+            case "MANAGER" -> {
+                return "manager_dashboard";
+            }
+            default -> {
+                return "customer_dashboard";
+            }
+        }
     }
 
     @GetMapping("/logout")

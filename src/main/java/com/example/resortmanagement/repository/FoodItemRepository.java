@@ -1,8 +1,8 @@
-package com.example.resortmanagement.repository;
+// package com.example.resortmanagement.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+// import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.resortmanagement.model.FoodItem;
+// import com.example.resortmanagement.model.FoodItem;
 
-public interface FoodItemRepository extends JpaRepository<FoodItem, Integer> {
-}
+// public interface FoodItemRepository extends JpaRepository<FoodItem, Integer> {
+// }
